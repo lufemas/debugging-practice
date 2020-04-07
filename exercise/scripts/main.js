@@ -1,12 +1,42 @@
-window.addEventListener('DOMContentLoaded', function() {
-  var cards = document.querySelectorAll('.card');
-  var selectedCards = [];
-  var matchedCards = [];
+  var reloadBtn;
+  var usernames = [];
+  var cards;
+  var selectedCards;
+  var matchedCards;
+  var cardValues = [1,1,2,2,3,3]
+  var isWaiting = false;
+
+function loadGame(){
+  cards = document.querySelectorAll('.card');
+  selectedCards = [];
+  matchedCards = [];
+
+  let currentCardValues = cardValues.length-1;
+  shuffle(cardValues);
 
   cards.forEach(function(card) {
+
+    card.classList.remove('is-selected');
+    card.classList.remove('is-matched');
+
+   
+    console.log (cardValues);
+    card.cardValue = cardValues[currentCardValues];
+    currentCardValues--;
+    // card.innerText = String(card.cardValue);
+    console.log(`card: ${card.innerText}`);
+    console.log(`cardValue: ${card.cardValue}`);
+    console.log(`currentCardValue: ${currentCardValues}`);
+      if (usernames[card.cardValue-1].value != ""){ 
+        card.children[0].src = "https://github.com/" + usernames[card.cardValue-1].value + ".png"
+      }else{
+        card.children[0].src = "https://source.unsplash.com/random/?pet," + card.cardValue;
+      }  
+    console.log(card.children[0].src);
+
     card.addEventListener('click', function() {
       // If the card has already been matched, ignore it.
-      if (card.classList.contains('is-matched') || card.classList.contains('is-selected')) {
+      if (card.classList.contains('is-matched') || card.classList.contains('is-selected') || isWaiting) {
         return;
       }
 
@@ -14,7 +44,6 @@ window.addEventListener('DOMContentLoaded', function() {
       // collection of selected cards and apply the correct CSS class.
       if (selectedCards.length < 2) {
         card.classList.add('is-selected');
-        card.classList.remove('not-selected');
         selectedCards.push(card);
       }
 
@@ -25,19 +54,24 @@ window.addEventListener('DOMContentLoaded', function() {
 
         // If the cards match, add them to the collection of matched cards and
         // apply the correct CSS class.
-        if (card1.innerText === card2.innerText) {
+        if (card1.cardValue === card2.cardValue) {
           matchedCards.push(card1, card2);
           card1.classList.add('is-matched');
           card2.classList.add('is-matched');
+          card1.classList.remove('is-selected');
+          card2.classList.remove('is-selected');
         }else{
-          // card1.classList.add('not-selected');
-          // card2.classList.add('not-selected');
+          isWaiting = true;
+          setTimeout(function(){ 
+            isWaiting = false;
+            card1.classList.remove('is-selected');
+            card2.classList.remove('is-selected');
+        }, 400);  
         }
 
         // Regardless of whether or not the cards match, deselect them and reset
         // the collection of matched cards.
-        card1.classList.remove('is-selected');
-        card2.classList.remove('is-selected');
+    
 
         
 
@@ -50,4 +84,36 @@ window.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
+
+
+}
+
+window.addEventListener('DOMContentLoaded', function() {
+  reloadBtn = document.getElementById(`reload-btn`);
+  reloadBtn.addEventListener(`click`, loadGame)
+  usernames = document.getElementsByClassName(`username-input`);
+  usernames[0].value = `jrmykolyn`;
+  usernames[1].value = `juneate`;
+  usernames[2].value = ``;
+  loadGame();
 });
+
+
+function shuffle(array) {
+  let  currentIndex = array.length
+  let temporaryValue;
+  let randomIndex;
+
+  while (0 !== currentIndex) {
+
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
