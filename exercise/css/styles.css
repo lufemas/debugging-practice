@@ -13,6 +13,47 @@ body {
   color: #222;
   font-family: Helvetica, sans-serif;
   font-size: 1.6rem;
+  display: flex;
+}
+
+.control-panel{
+  display: flex;
+  flex-direction: column;
+}
+
+.btn{
+  margin: 3rem 0;
+  font-size: 2rem;
+  padding: .75rem 0;
+  border-radius: .5rem;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  transition: all .1s ease-in-out;
+}
+
+.btn:hover{
+  box-shadow: 0 0rem 1rem .25rem rgb(101, 4, 131);
+  background-color: #222;
+  cursor: pointer;
+}
+
+.avatar-selection {
+  display: flex;
+  flex-direction: column;
+}
+
+.avatar-selection label{
+  margin: 3rem 0 1rem 0;
+  font-size: 2rem;
+}
+
+.avatar-selection input{
+  font-size: 2rem;
+  border-radius: .5rem;
+  border-style: solid;
+  border-color: #555;
+  padding: .5rem 1rem;
 }
 
 main {
@@ -43,6 +84,8 @@ main {
   transition: all 0.15s ease-in-out;
   /* rotate: y 0deg; */
   animation: deselect-card2 .5s 1 forwards;
+  cursor: pointer;
+
 
   font-size: 12rem;
   font-weight: bold;
@@ -93,6 +136,25 @@ main {
   margin-right: 2%;
 }
 
+.card-img{
+  width: 90%;
+  border-radius: 50%;
+  transition: all .5s;
+  rotate: y 180deg;
+  opacity: 0%;
+}
+
+.card.is-selected .card-img{
+  opacity: 100%;
+  rotate: 0deg;
+}
+
+.card.is-matched .card-img{
+  opacity: 100%;
+  rotate: y 180deg;
+}
+
+
 /*
 If the card is either selected or matched, display the character by setting
 the background colour to white.
@@ -109,11 +171,6 @@ the background colour to white.
 
 }
 
-.card.not-selected{
-  animation: deselect-card2 .5s 1 forwards;
-  /* animation-delay: 1s; */
-
-}
 
 .card:hover {
   box-shadow: 0 0rem 2rem .5rem rgb(101, 4, 131);
