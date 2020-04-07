@@ -94,9 +94,9 @@ main {
 }
 
 @keyframes select-card {
-  0%   {rotate: 0deg;}
-  50%  {rotate: y 90deg; background-color: #222;}
-  100% {rotate: y 180deg; background-color: #fff;}
+  0%   {transform: rotateY(0deg);}
+  50%  {transform: rotateY(90deg); background-color: #222;}
+  100% {transform: rotateY(180deg); background-color: #fff;}
 }
 
 @keyframes match-card {
@@ -117,18 +117,18 @@ main {
 }
 
 @keyframes deselect-card2 {
-  0%   {rotate: y 180deg;background-color: rgb(255, 2, 2);}
-  50% {rotate: y 180deg; background-color: rgb(255, 125, 125); }
-  75%  {rotate: y 90deg;background-color: rgb(255, 255, 255); }
-  100% {rotate: y 0deg;background-color: #222;}
+  0%   {transform: rotateY(180deg) ;background-color: rgb(255, 2, 2);}
+  50% {transform: rotateY(180deg) ; background-color: rgb(255, 125, 125); }
+  75%  {transform: rotateY(90deg) ;background-color: rgb(255, 255, 255); }
+  100% {transform: rotateY(0deg) ;background-color: #222;}
 }
 
 @keyframes deselect-card1 {
-  0%   {rotate: y 0deg;}
-  35%  {rotate: y 60deg; background-color: #222;}
-  50% {rotate: y 180deg; }
-  75%  {rotate: y 180deg;background-color: #fff; }
-  100% {rotate: y 0deg;background-color: #222;}
+  0%   {transform: rotateY(0deg) ;}
+  35%  {transform: rotateY(60deg) ; background-color: #222;}
+  50% {transform: rotateY(180deg) ; }
+  75%  {transform: rotateY(180deg) ;background-color: #fff; }
+  100% {transform: rotateY(0deg) ;background-color: #222;}
 }
 
 .card:nth-child(3n - 1) {
@@ -140,7 +140,7 @@ main {
   width: 90%;
   border-radius: 50%;
   transition: all .5s;
-  rotate: y 180deg;
+  transform: rotateY(180deg);
   opacity: 0%;
 }
 
@@ -151,7 +151,7 @@ main {
 
 .card.is-matched .card-img{
   opacity: 100%;
-  rotate: y 180deg;
+  transform: rotateY(180deg);
 }
 
 
