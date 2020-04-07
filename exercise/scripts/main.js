@@ -6,7 +6,7 @@ window.addEventListener('DOMContentLoaded', function() {
   cards.forEach(function(card) {
     card.addEventListener('click', function() {
       // If the card has already been matched, ignore it.
-      if (card.classList.contains('is-matched')) {
+      if (card.classList.contains('is-matched') || card.classList.contains('is-selected')) {
         return;
       }
 
@@ -14,6 +14,7 @@ window.addEventListener('DOMContentLoaded', function() {
       // collection of selected cards and apply the correct CSS class.
       if (selectedCards.length < 2) {
         card.classList.add('is-selected');
+        card.classList.remove('not-selected');
         selectedCards.push(card);
       }
 
@@ -28,12 +29,18 @@ window.addEventListener('DOMContentLoaded', function() {
           matchedCards.push(card1, card2);
           card1.classList.add('is-matched');
           card2.classList.add('is-matched');
+        }else{
+          // card1.classList.add('not-selected');
+          // card2.classList.add('not-selected');
         }
 
         // Regardless of whether or not the cards match, deselect them and reset
         // the collection of matched cards.
         card1.classList.remove('is-selected');
         card2.classList.remove('is-selected');
+
+        
+
         selectedCards = [];
       }
 

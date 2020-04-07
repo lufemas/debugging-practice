@@ -30,6 +30,7 @@ main {
 }
 
 .card {
+  user-select: none;
   min-height: 36rem;
   flex: 0 0 32%;
   margin-bottom: 2%;
@@ -39,10 +40,52 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: all 0.15s;
+  transition: all 0.15s ease-in-out;
+  /* rotate: y 0deg; */
+  animation: deselect-card2 .5s 1 forwards;
+
   font-size: 12rem;
   font-weight: bold;
   text-shadow: 0 0.5rem 2rem -0.5rem rgba(0, 0, 0, 0.1);
+
+}
+
+@keyframes select-card {
+  0%   {rotate: 0deg;}
+  50%  {rotate: y 90deg; background-color: #222;}
+  100% {rotate: y 180deg; background-color: #fff;}
+}
+
+@keyframes match-card {
+  0% { transform: translate(1px, 1px) rotate(0deg); background-color: rgb(152, 250, 157); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg);background-color: rgb(94, 226, 100);  }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg);background-color: rgb(152, 250, 157);  }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(0px, 0px) rotate(0deg);  background-color: #fff; }
+  /* 0%   {rotate: 0deg;}
+  50%  {rotate: y 90deg; background-color: #222;}
+  100% {rotate: y 180deg; background-color: #fff;} */
+}
+
+@keyframes deselect-card2 {
+  0%   {rotate: y 180deg;background-color: rgb(255, 2, 2);}
+  50% {rotate: y 180deg; background-color: rgb(255, 125, 125); }
+  75%  {rotate: y 90deg;background-color: rgb(255, 255, 255); }
+  100% {rotate: y 0deg;background-color: #222;}
+}
+
+@keyframes deselect-card1 {
+  0%   {rotate: y 0deg;}
+  35%  {rotate: y 60deg; background-color: #222;}
+  50% {rotate: y 180deg; }
+  75%  {rotate: y 180deg;background-color: #fff; }
+  100% {rotate: y 0deg;background-color: #222;}
 }
 
 .card:nth-child(3n - 1) {
@@ -54,7 +97,26 @@ main {
 If the card is either selected or matched, display the character by setting
 the background colour to white.
 */
-.card.is-selected,
+
 .card.is-matched {
-  background: #fff;
+  /* background: #fff; */
+  animation: match-card 1s 1 forwards;
+} 
+
+.card.is-selected, .card.is-selected:hover{
+  animation: select-card 0.25s 1 forwards;
+  box-shadow: 0 0rem 0rem 1rem rgb(46, 9, 182);
+
 }
+
+.card.not-selected{
+  animation: deselect-card2 .5s 1 forwards;
+  /* animation-delay: 1s; */
+
+}
+
+.card:hover {
+  box-shadow: 0 0rem 2rem .5rem rgb(101, 4, 131);
+
+}
+
