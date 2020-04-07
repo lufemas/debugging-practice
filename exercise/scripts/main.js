@@ -91,10 +91,15 @@ function loadGame(){
 window.addEventListener('DOMContentLoaded', function() {
   reloadBtn = document.getElementById(`reload-btn`);
   reloadBtn.addEventListener(`click`, loadGame)
+
   usernames = document.getElementsByClassName(`username-input`);
   usernames[0].value = `jrmykolyn`;
   usernames[1].value = `juneate`;
   usernames[2].value = ``;
+
+  // This will let a little bit harder to cheat
+  document.addEventListener('contextmenu', event => event.preventDefault());
+
   loadGame();
 });
 
